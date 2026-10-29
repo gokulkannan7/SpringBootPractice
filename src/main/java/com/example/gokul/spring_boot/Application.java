@@ -34,8 +34,11 @@ import java.util.Map;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-	@Autowired
-	Map<String, NotificationService> notificationServiceMap = new HashMap<>();
+    private final CakeBaker cakeBaker;
+
+	public Application(CakeBaker cakeBaker) {
+		this.cakeBaker = cakeBaker;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -44,10 +47,6 @@ public class Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		 for(var notification: notificationServiceMap.entrySet()){
-			 String key = notification.getKey();
-			 System.out.println(key);
-			 notification.getValue().send("Hello from the map contents");
-		 }
+		cakeBaker.bakeCake();
 	}
 }
